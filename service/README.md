@@ -3,10 +3,10 @@
 # Build Application using Docker
 
 1. Build the Docker image
-    docker build -t flask_app .
+    docker build -t service .
 
 2. Run the Docker container with port 8000
-    docker run -d -p 8000:8000 flask_app
+    docker run -d -p 8000:8000 service
 
 3. Verify running containers
     docker ps
@@ -19,6 +19,9 @@
 
 6. Access Swagger UI documentation
     http://localhost:8000/apidocs/
+
+7. stop container
+    docker stop <container_id>
 
 ## Setup(handled by docker)
 
