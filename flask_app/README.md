@@ -12,7 +12,12 @@
     python app.py
     ```
 
-3. Run the tests:
+3. Access Swagger UI for API documentation at:
+    ```
+    http://localhost:8000/apidocs/
+    ```
+
+4. Run the tests:
     ```sh
     python -m unittest discover tests/route
     ```
