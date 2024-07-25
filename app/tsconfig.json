@@ -10,6 +10,8 @@
   ],
   "compilerOptions": {
     "types": ["jest", "@testing-library/jest-dom"],
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "esModuleInterop": true,
     "jsx": "react",
     "strict": true

@@ -3,6 +3,7 @@ import { rest } from 'msw';
 
 const server = setupServer(
   rest.get('http://localhost:8000/api/companies', (req, res, ctx) => {
+    // @ts-ignore
     return res(ctx.json([
       {
         company_id: 1,
@@ -17,6 +18,7 @@ const server = setupServer(
     ]));
   }),
   rest.get('http://localhost:8000/api/companies/:id/locations', (req, res, ctx) => {
+    // @ts-ignore
     return res(ctx.json([
       {
         address: '123 Innovation Drive, San Francisco, CA 94105',
