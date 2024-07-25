@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./service
+      dockerfile: Dockerfile
+    container_name: backend-service
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./service:/app
+    networks:
+      - app-network
+    environment:
+      - ENV_VAR_NAME=env_var_value # Add your environment variables here
+
+  frontend:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: frontend-service
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./app:/app
+    networks:
+      - app-network
+    environment:
+      - ENV_VAR_NAME=env_var_value # Add your environment variables here
+    depends_on:
+      - backend
+
+networks:
+  app-network:
+    driver: bridge

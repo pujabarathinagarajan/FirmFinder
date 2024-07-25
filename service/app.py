@@ -1,9 +1,13 @@
 from flask import Flask
+from flask_cors import CORS
 from flasgger import Swagger
 from api.route.company import company_bp
 
 # Initialize Flask app
 app = Flask(__name__)
+
+# Enable CORS
+CORS(app)
 
 # Swagger configuration
 swagger = Swagger(app)

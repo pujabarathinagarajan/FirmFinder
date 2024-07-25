@@ -1,30 +1,55 @@
 # React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a React application built with Vite and TypeScript. It includes a development environment configured to run within a Docker container.
 
-Currently, two official plugins are available:
+This app provides frontend code that displays two pages
+1. Companies List Page
+2. Company Locations Page
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Follow the commands to start the application (ensure backend application is running)
+# Build Application using Docker
 
-## Expanding the ESLint configuration
+1. Build the Docker image
+    docker build -t app .
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+2. Run the Docker container with port 8000
+    docker run -d -p 5173:5173 app
 
-- Configure the top-level `parserOptions` property like this:
+3. Verify running containers
+    docker ps
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+4. Check logs of the running container
+    docker logs <container_id>
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+5. Access the application in the browser
+    http://localhost:5173
+
+6. stop container
+    docker stop <container_id>
+
+## Development Workflow (handled by docker)
+
+1. Install dependencies:
+    ```sh
+    npm install
+    ```
+
+2. Run the development server:
+    ```sh
+    npm run dev
+    ```
+
+3. Build for production:
+    ```sh
+    npm run build
+    ```
+
+4. Preview Production Build:
+    ```sh
+    npm run preview
+    ```
+
+5. Run the tests:
+    ```sh
+    npm run test
+    ```
