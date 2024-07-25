@@ -1,4 +1,4 @@
-# Use the official Node.js 20 image as the base image
+# Stage 1: Build Stage
 FROM node:20 AS builder
 
 # Set the working directory inside the container
@@ -22,7 +22,7 @@ COPY . .
 # Build the application
 RUN npm run build
 
-# Use a smaller base image for the runtime
+# Stage 2: Production Stage
 FROM node:20-slim
 
 # Set the working directory inside the container

@@ -58,3 +58,7 @@
 ### Get All Locations for a Specific Company ID
 - **URL:** `/api/companies/<int:company_id>/locations`
 - **Method:** `GET`
+
+### Get Healthcheck
+- **URL:** `/health`
+- **Method:** `GET`
