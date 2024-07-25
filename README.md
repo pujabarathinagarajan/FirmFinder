@@ -14,8 +14,10 @@ Make sure you have the following installed on your machine:
 - Docker
 - Docker Compose
 
-## Build and Start the Containers
+## Build the Containers (Handles unit test cases of backend and frontend)
 docker-compose up --build
+
+## Start the Containers
 docker-compose up
 
 ## Stopping the Containers

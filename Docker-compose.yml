@@ -13,7 +13,12 @@ services:
     networks:
       - app-network
     environment:
-      - ENV_VAR_NAME=env_var_value # Add your environment variables here
+      - ENV_VAR_NAME=env_var_value  # Add your environment variables here
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 2
 
   frontend:
     build:
@@ -28,9 +33,11 @@ services:
     networks:
       - app-network
     environment:
-      - ENV_VAR_NAME=env_var_value # Add your environment variables here
+      - ENV_VAR_NAME=env_var_value  # Add your environment variables here
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
+    command: /bin/sh -c "sleep 10 && npm run dev"
 
 networks:
   app-network:

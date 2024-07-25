@@ -1,10 +1,15 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS
 from flasgger import Swagger
 from api.route.company import company_bp
 
 # Initialize Flask app
 app = Flask(__name__)
+
+# Defined health check endpoint
+@app.route('/health')
+def health():
+    return jsonify(status='healthy')
 
 # Enable CORS
 CORS(app)

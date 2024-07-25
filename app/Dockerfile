@@ -1,5 +1,5 @@
 # Use the official Node.js 20 image as the base image
-FROM node:20
+FROM node:20 AS builder
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -18,6 +18,18 @@ RUN if [ "$(uname -m)" = "aarch64" ]; then npm install @rollup/rollup-linux-arm6
 
 # Copy the rest of the application code to the working directory
 COPY . .
+
+# Build the application
+RUN npm run build
+
+# Use a smaller base image for the runtime
+FROM node:20-slim
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the built files from the builder stage
+COPY --from=builder /app .
 
 # Run tests (optional)
 RUN npm run test

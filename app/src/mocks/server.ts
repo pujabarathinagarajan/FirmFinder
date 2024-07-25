@@ -1,9 +1,8 @@
 import { setupServer } from 'msw/node';
-import { rest } from 'msw';
+import { rest, RestRequest, ResponseComposition, RestContext } from 'msw';
 
 const server = setupServer(
-  rest.get('http://localhost:8000/api/companies', (req, res, ctx) => {
-    // @ts-ignore
+  rest.get('http://localhost:8000/api/companies', (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
     return res(ctx.json([
       {
         company_id: 1,
@@ -17,8 +16,7 @@ const server = setupServer(
       }
     ]));
   }),
-  rest.get('http://localhost:8000/api/companies/:id/locations', (req, res, ctx) => {
-    // @ts-ignore
+  rest.get('http://localhost:8000/api/companies/:id/locations', (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
     return res(ctx.json([
       {
         address: '123 Innovation Drive, San Francisco, CA 94105',
