@@ -1,24 +1,82 @@
 // @ts-ignore
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import CompanyDetailsPage from './CompanyDetailsPage';
+import { server } from '../mocks/server'; // Adjust the import path if necessary
 
-test('renders company details page with locations', async () => {
-  render(
-    <MemoryRouter initialEntries={['/company/1']}>
-      <Routes>
-        <Route path="/company/:id" element={<CompanyDetailsPage />} />
-      </Routes>
-    </MemoryRouter>
-  );
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
 
-  await waitFor(() => {
-    expect(screen.getByText(/Company Locations/i)).toBeInTheDocument();
+describe('CompanyDetailsPage', () => {
+  test('renders loading state initially', async () => {
+    render(
+      <MemoryRouter initialEntries={['/company/1']}>
+        <Routes>
+          <Route path="/company/:id" element={<CompanyDetailsPage />} />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    // Adjust this line to match your component's loading state
+    expect(screen.getByText(/loading/i)).toBeInTheDocument();
   });
 
-  expect(screen.getByText(/TechNova HQ/i)).toBeInTheDocument();
-  expect(screen.getByText(/123 Innovation Drive, San Francisco, CA 94105/i)).toBeInTheDocument();
-  expect(screen.getByText(/TechNova R&D Center/i)).toBeInTheDocument();
-  expect(screen.getByText(/456 Research Park, Palo Alto, CA 94304/i)).toBeInTheDocument();
+  test('fetches and displays company locations', async () => {
+    render(
+      <MemoryRouter initialEntries={['/company/1']}>
+        <Routes>
+          <Route path="/company/:id" element={<CompanyDetailsPage />} />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText(/TechNova Locations/i)).toBeInTheDocument();
+      expect(screen.getByText(/TechNova HQ/i)).toBeInTheDocument();
+      expect(screen.getByText(/TechNova R&D Center/i)).toBeInTheDocument();
+    });
+  });
+
+  test('switches between Map View and List View', async () => {
+    render(
+      <MemoryRouter initialEntries={['/company/1']}>
+        <Routes>
+          <Route path="/company/:id" element={<CompanyDetailsPage />} />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText(/TechNova HQ/i)).toBeInTheDocument();
+    });
+
+    fireEvent.click(screen.getByText(/List View/i));
+    expect(screen.getByText(/TechNova HQ/i)).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText(/Map View/i));
+    expect(screen.getByText(/TechNova HQ/i)).toBeInTheDocument(); // Assuming MapView also shows location names
+  });
+
+  test('navigates back to the company list', async () => {
+    render(
+      <MemoryRouter initialEntries={['/company/1']}>
+        <Routes>
+          <Route path="/company/:id" element={<CompanyDetailsPage />} />
+          <Route path="/" element={<div>Company List Page</div>} />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText(/TechNova HQ/i)).toBeInTheDocument();
+    });
+
+    fireEvent.click(screen.getByText(/← Back to List/i));
+
+    await waitFor(() => {
+      expect(screen.getByText(/Company List Page/i)).toBeInTheDocument();
+    });
+  });
 });

@@ -45,12 +45,21 @@
     text-align: left;
 }
 
+.app-desc {
+    font-family: 'Voces', 'Open Sans', arial, sans-serif;
+    font-size: 15px;
+    color: #888888;
+    margin: 10px auto;
+    width: 60%;
+    text-align: left;
+}
+
 .navigation-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 60%;
-    margin: 35px auto;
+    margin: 20px auto;
 }
 
 .back-arrow {

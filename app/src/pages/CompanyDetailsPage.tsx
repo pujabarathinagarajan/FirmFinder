@@ -29,7 +29,7 @@ const CompanyDetailsPage: React.FC = () => {
         setFocusLocation(location);
     };
 
-    if (!locations.length) {
+    if (!locations || locations.length === 0) {
         return <div>Loading...</div>;
     }
 
@@ -37,7 +37,8 @@ const CompanyDetailsPage: React.FC = () => {
         <div className="page-container">
             <Header />
             <div className="fixed-container">
-                <div className="app-title">{locations[0].name} Locations</div>
+                <div className="app-title">{locations[0].name.split(' ')[0]} Locations</div>
+                <div className="app-desc">Zoom in/out in Map View to view all locations or Click on any location in list view to visualize it in map.</div>
                 <div className="navigation-bar">
                     <button className="back-arrow" onClick={() => navigate('/')}>
                         ← Back to List
