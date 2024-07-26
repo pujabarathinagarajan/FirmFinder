@@ -116,6 +116,11 @@
     background-image: linear-gradient(-250deg, #D62F1F, transparent 80%);
 }
 
+/* Add this block */
+.list-container .projcard {
+    width: 100%;
+}
+
 .projcard-description {
     z-index: 10;
     font-size: 15px;
