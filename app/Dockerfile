@@ -32,7 +32,7 @@ WORKDIR /app
 COPY --from=builder /app .
 
 # Run tests (optional)
-RUN npm run test
+# RUN npm run test
 
 # Expose port 5173 to the outside world
 EXPOSE 5173

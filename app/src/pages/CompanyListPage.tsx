@@ -1,7 +1,10 @@
+// src/pages/CompanyListPage.tsx
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { fetchCompanies } from '../services/api';
 import { Company } from '../models/Company';
+import CompanyCard from '../components/CompanyCard';
+import '../css/CompanyListPage.css';
+import logo from '../assets/logo.png';
 
 const CompanyListPage: React.FC = () => {
     const [companies, setCompanies] = useState<Company[]>([]);
@@ -24,24 +27,23 @@ const CompanyListPage: React.FC = () => {
     );
 
     return (
-        <div>
-            <h1>Company List</h1>
+        <div className="page-container">
+            <div className="header-container">
+                <img src={logo} alt="Firm Finder Logo" className="logo" />
+                <div className="app-title">Companies List</div>
+            </div>
             <input
                 type="text"
                 placeholder="Search companies by name"
                 value={search}
                 onChange={handleSearchChange}
+                className="search-input"
             />
-            <ul>
+            <div className="cards-container">
                 {filteredCompanies.map(company => (
-                    <li key={company.company_id}>
-                        <Link to={`/company/${company.company_id}`}>
-                            <h2>{company.name}</h2>
-                            <p>{company.address}</p>
-                        </Link>
-                    </li>
+                    <CompanyCard key={company.company_id} company={company} />
                 ))}
-            </ul>
+            </div>
         </div>
     );
 };
