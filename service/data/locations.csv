@@ -29,3 +29,6 @@ location_id,company_id,name,address,latitude,longitude
 28,10,EcoHarbor Waikiki Resort,"707 Beachfront Drive, Honolulu, HI 96815",21.3069,-157.8583
 29,10,EcoHarbor Maui Retreat,"2020 Paradise Place, Lahaina, HI 96761",20.8824,-156.6819
 30,10,EcoHarbor Big Island Adventure,"3030 Volcano View Road, Hilo, HI 96720",19.7241,-155.0868
+31,1,TechNova South Office,"101 Innovation Blvd, Austin, TX 73301",30.2672,-97.7431
+32,1,TechNova Europe Office,"1 Tech Street, London, UK EC1A 1HQ",51.5074,-0.1278
+33,1,TechNova Asia Office,"99 Tech Park, Bengaluru, India 560100",12.9716,77.5946

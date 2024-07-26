@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { fetchCompanyLocations } from '../services/api';
 import { Location } from '../models/Company';
 import MapView from '../components/MapView';
 import ListView from '../components/ListView';
-import '../css/CompanyDetailsPage.css'; // Ensure this is the correct path to your CSS file
-import logo from '../assets/logo.png'; // Ensure this is the correct path to your logo
+import Header from '../components/Header';
+import '../css/CompanyDetailsPage.css';
+import '../css/Button.css';
 
 const CompanyDetailsPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [locations, setLocations] = useState<Location[]>([]);
     const [activeTab, setActiveTab] = useState<'map' | 'list'>('map');
     const [focusLocation, setFocusLocation] = useState<Location | null>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getCompanyLocations = async () => {
@@ -33,16 +35,20 @@ const CompanyDetailsPage: React.FC = () => {
 
     return (
         <div className="page-container">
-            <div className="header-container">
-                <img src={logo} alt="Firm Finder Logo" className="logo" />
-                <div className="app-title">Company Locations</div>
-            </div>
-            <div class = "inner-details-container">
-                <div className="tab-buttons">
-                    <button onClick={() => setActiveTab('map')} className={activeTab === 'map' ? 'active' : ''}>Map View</button>
-                    <button onClick={() => setActiveTab('list')} className={activeTab === 'list' ? 'active' : ''}>List View</button>
-                    <Link to="/">Back to List</Link>
+            <Header />
+            <div className="fixed-container">
+                <div className="app-title">{locations[0].name} Locations</div>
+                <div className="navigation-bar">
+                    <button className="back-arrow" onClick={() => navigate('/')}>
+                        ← Back to List
+                    </button>
+                    <div className="tab-buttons">
+                        <button className={`bn30 ${activeTab === 'map' ? 'active' : ''}`} onClick={() => setActiveTab('map')}>Map View</button>
+                        <button className={`bn30 ${activeTab === 'list' ? 'active' : ''}`} onClick={() => setActiveTab('list')}>List View</button>
+                    </div>
                 </div>
+            </div>
+            <div className="scrollable-container inner-details-container">
                 {activeTab === 'map' ? (
                     <MapView locations={locations} focusLocation={focusLocation} />
                 ) : (

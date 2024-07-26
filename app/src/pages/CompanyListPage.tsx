@@ -4,7 +4,7 @@ import { fetchCompanies } from '../services/api';
 import { Company } from '../models/Company';
 import CompanyCard from '../components/CompanyCard';
 import '../css/CompanyListPage.css';
-import logo from '../assets/logo.png';
+import Header from '../components/Header';
 
 const CompanyListPage: React.FC = () => {
     const [companies, setCompanies] = useState<Company[]>([]);
@@ -28,21 +28,23 @@ const CompanyListPage: React.FC = () => {
 
     return (
         <div className="page-container">
-            <div className="header-container">
-                <img src={logo} alt="Firm Finder Logo" className="logo" />
+            <Header />
+            <div className="fixed-container">
                 <div className="app-title">Companies List</div>
+                <input
+                    type="text"
+                    placeholder="Search companies by name"
+                    value={search}
+                    onChange={handleSearchChange}
+                    className="search-input"
+                />
             </div>
-            <input
-                type="text"
-                placeholder="Search companies by name"
-                value={search}
-                onChange={handleSearchChange}
-                className="search-input"
-            />
-            <div className="cards-container">
-                {filteredCompanies.map(company => (
-                    <CompanyCard key={company.company_id} company={company} />
-                ))}
+            <div className="scrollable-container">
+                <div className="cards-container">
+                    {filteredCompanies.map(company => (
+                        <CompanyCard key={company.company_id} company={company} />
+                    ))}
+                </div>
             </div>
         </div>
     );

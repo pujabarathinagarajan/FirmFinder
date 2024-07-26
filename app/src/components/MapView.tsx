@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
+import { Location } from '../models/Company';
+
+// Fix for the default icon issue in Leaflet
 import 'leaflet/dist/leaflet.css';
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
-import { Location } from '../models/Company';
 
-// Fix for the default icon issue in Leaflet
+// Set default icon for Leaflet markers
 const DefaultIcon = L.icon({
     iconRetinaUrl: markerIcon2x,
     iconUrl: markerIcon,
@@ -22,16 +24,21 @@ L.Marker.prototype.options.icon = DefaultIcon;
 
 interface MapViewProps {
     locations: Location[];
-    focusLocation?: Location | null;
+    focusLocation: Location | null;
 }
 
 const MapView: React.FC<MapViewProps> = ({ locations, focusLocation }) => {
-    const defaultCenter = focusLocation
-        ? [focusLocation.latitude, focusLocation.longitude]
-        : [locations[0].latitude, locations[0].longitude];
+    useEffect(() => {
+        if (focusLocation) {
+            // Logic to focus on the specified location
+        }
+    }, [focusLocation]);
 
     return (
-        <MapContainer center={defaultCenter} zoom={13} style={{ height: '400px', width: '100%' }}>
+        <MapContainer 
+            center={[locations[0].latitude, locations[0].longitude] as [number, number]} 
+            zoom={13} 
+            style={{ height: '400px', width: '100%' }}>
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
