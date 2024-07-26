@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import React, { useEffect, useRef } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import { Location } from '../models/Company';
 
@@ -28,17 +28,42 @@ interface MapViewProps {
 }
 
 const MapView: React.FC<MapViewProps> = ({ locations, focusLocation }) => {
-    useEffect(() => {
-        if (focusLocation) {
-            // Logic to focus on the specified location
-        }
-    }, [focusLocation]);
+    const mapRef = useRef<L.Map | null>(null);
+
+    const MapEventsHandler = () => {
+        const map = useMapEvents({
+            load: () => {
+                mapRef.current = map;
+                if (focusLocation) {
+                    map.setView([focusLocation.latitude, focusLocation.longitude], 13);
+                } else if (locations.length > 0) {
+                    map.setView([locations[0].latitude, locations[0].longitude], 13);
+                }
+            },
+        });
+
+        useEffect(() => {
+            if (focusLocation && mapRef.current) {
+                mapRef.current.setView([focusLocation.latitude, focusLocation.longitude], 13);
+            }
+        }, [focusLocation]);
+
+        useEffect(() => {
+            if (locations.length > 0 && mapRef.current && !focusLocation) {
+                mapRef.current.setView([locations[0].latitude, locations[0].longitude], 13);
+            }
+        }, [locations, focusLocation]);
+
+        return null;
+    };
 
     return (
-        <MapContainer 
-            center={[locations[0].latitude, locations[0].longitude] as [number, number]} 
-            zoom={13} 
-            style={{ height: '400px', width: '100%' }}>
+        <MapContainer
+            center={focusLocation ? [focusLocation.latitude, focusLocation.longitude] : [locations[0].latitude, locations[0].longitude]}
+            zoom={13}
+            style={{ height: '400px', width: '100%' }}
+        >
+            <MapEventsHandler />
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />

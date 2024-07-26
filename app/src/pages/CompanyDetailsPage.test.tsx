@@ -5,6 +5,16 @@ import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import CompanyDetailsPage from './CompanyDetailsPage';
 import { server } from '../mocks/server'; // Adjust the import path if necessary
 
+// Mocking useMapEvents from react-leaflet
+jest.mock('react-leaflet', () => ({
+  ...jest.requireActual('react-leaflet'),
+  useMapEvents: jest.fn().mockImplementation(() => {
+    return {
+      setView: jest.fn(),
+    };
+  }),
+}));
+
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
@@ -52,10 +62,10 @@ describe('CompanyDetailsPage', () => {
       expect(screen.getByText(/TechNova HQ/i)).toBeInTheDocument();
     });
 
-    fireEvent.click(screen.getByText(/List View/i));
+    fireEvent.click(screen.getByRole('button', { name: /List View/i }));
     expect(screen.getByText(/TechNova HQ/i)).toBeInTheDocument();
 
-    fireEvent.click(screen.getByText(/Map View/i));
+    fireEvent.click(screen.getByRole('button', { name: /Map View/i }));
     expect(screen.getByText(/TechNova HQ/i)).toBeInTheDocument(); // Assuming MapView also shows location names
   });
 
@@ -73,7 +83,7 @@ describe('CompanyDetailsPage', () => {
       expect(screen.getByText(/TechNova HQ/i)).toBeInTheDocument();
     });
 
-    fireEvent.click(screen.getByText(/← Back to List/i));
+    fireEvent.click(screen.getByRole('button', { name: /← Back to List/i }));
 
     await waitFor(() => {
       expect(screen.getByText(/Company List Page/i)).toBeInTheDocument();

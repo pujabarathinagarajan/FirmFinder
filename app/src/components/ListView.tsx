@@ -11,9 +11,11 @@ const ListView: React.FC<ListViewProps> = ({ locations, onLocationClick }) => {
     return (
         <div className="list-container">
             {locations.map((location: Location) => (
-                <div key={location.location_id} onClick={() => onLocationClick(location)} style={{ cursor: 'pointer' }}>
-                    <LocationCard location={location} />
-                </div>
+                <LocationCard
+                    key={location.location_id}
+                    location={location}
+                    onClick={onLocationClick}
+                />
             ))}
         </div>
     );
