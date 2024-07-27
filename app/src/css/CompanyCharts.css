@@ -1,0 +1,15 @@
+.chart-column {
+    display: flex;
+    flex-direction: row;
+    margin: 5% auto;
+}
+
+.chart-row {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.recharts-responsive-container {
+    margin-top: 5%;
+}
