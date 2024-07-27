@@ -1,16 +1,16 @@
 /* src/css/CompanyCard.css */
 .projcard {
     position: relative;
-    height: 100px;
-    margin-bottom: 20px;
-    border-radius: 10px;
+    height: 8vw;
+    margin-bottom: 1vw;
+    border-radius: 1vw;
     background-color: #fff;
     border: 2px solid #ddd;
-    width: 60%;
-    font-size: 18px;
+    width: 60vw;
+    font-size: 1vw;
     overflow: hidden;
     cursor: pointer;
-    margin: 0 auto 20px auto;
+    margin: 0 auto 1vw auto;
     box-shadow: 0 4px 21px -12px rgba(0, 0, 0, .66);
     transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
@@ -40,7 +40,7 @@
 }
 
 .projcard:hover .projcard-bar {
-    width: 70px;
+    width: 70vw;
 }
 
 .projcard-textbox {
@@ -49,24 +49,12 @@
     bottom: 10%;
     left: 3%;
     right: 3%;
-    font-size: 17px;
+    font-size: 1vw;
     text-decoration: none;
     color: inherit;
 }
 
-.projcard-textbox::before,
-.projcard-textbox::after {
-    content: "";
-    position: absolute;
-    display: block;
-    background: #ff0000bb;
-    background: #fff;
-    top: -20%;
-    left: -55px;
-    height: 140%;
-    width: 60px;
-    transform: rotate(8deg);
-}
+
 
 .projcard:nth-child(2n) .projcard-textbox::before {
     display: none;
@@ -88,7 +76,7 @@
 
 .projcard-title {
     font-family: 'Voces', 'Open Sans', arial, sans-serif;
-    font-size: 24px;
+    font-size: 2vw;
 }
 
 .projcard-subtitle {
@@ -125,9 +113,8 @@
 
 .projcard-description {
     z-index: 10;
-    font-size: 15px;
+    font-size: 1vw;
     color: #888888;
-    height: 125px;
     overflow: hidden;
     text-overflow: ellipsis;
 }

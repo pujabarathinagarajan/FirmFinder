@@ -2,7 +2,7 @@
 .header-container {
     display: flex;
     align-items: center;
-    padding: 20px;
+    padding: 2vw;
     background-color: #fff;
     width: auto;
     position: fixed; /* Fix position at the top */
@@ -12,6 +12,5 @@
 }
 
 .logo {
-    height: 120px;
-    margin-right: 20px;
+    height: 8vw;
 }
